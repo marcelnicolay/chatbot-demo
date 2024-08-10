@@ -35,12 +35,10 @@
 
 ```
 $PROJECT_ROOT
-
 └── backend        # backend workdir
     ├── src        # fastapi source files
     ├── data       # RAG vector store
     ├── tests      # Backend tests
-
 └── frontend       # frontend workdir
     ├── src        # nextjs source files
     ├── tests      # frontend tests
