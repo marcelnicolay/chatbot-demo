@@ -1,0 +1,48 @@
+[tool]
+[tool.poetry]
+name = "app"
+version = "0.0.1"
+description = ""
+authors = [ "Marcel <marcel.nicolay@gmail.com>" ]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.0"
+pytest-asyncio = "^0.23.6"
+aiosqlite = "^0.20.0"
+faker = "^25.4.0"
+mypy = "^1.11.1"
+ruff = "^0.5.7"
+
+[tool.poetry.dependencies]
+python = "3.11.9"
+fastapi = "^0.109.1"
+langchain = "^0.2.7"
+langchain-community = "^0.2.7"
+langchain-openai = "^0.1.4"
+gunicorn = "^22.0.0"
+chromadb = "^0.5.0"
+python-dotenv = "^1.0.0"
+pydantic-settings = "^2.2.1"
+beanie = "^1.26.0"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+log_cli = true
+log_cli_level = "DEBUG"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_unimported = false
+disallow_untyped_defs = true
+explicit_package_bases = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_ignores = true

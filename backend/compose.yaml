@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: "mongodb://root:example@mongodb:27017"
+    ports:
+      - "8000:8000"
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example

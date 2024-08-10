@@ -1,0 +1,4 @@
+
+
+class NoResultFound(Exception):
+    pass
