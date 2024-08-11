@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     model: str = "gpt-3.5-turbo"
     embedding_model: str = "text-embedding-3-small"
     mongo_uri: str
+    db_name: str = "chatbot"
     verbose: bool = True
     vectorstore_persist_directory: str = os.path.join(parent_folder, "data", "vectorstore")
     vectorstore_load_dir: str = os.path.join(parent_folder, "data", "load")
