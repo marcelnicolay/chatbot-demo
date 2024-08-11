@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8000
 
 # Command to run the application using uvicorn
-CMD ["gunicorn", "src.main:app", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "8000"]
+CMD ["gunicorn", "src.main:app", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", ":8000"]
