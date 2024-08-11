@@ -23,11 +23,13 @@ pytest
 This codebase is uses mypy for type checking and ruff for everything else
 
 To run type checker
+
 ```bash
 mypy src
 ```
 
 To run the linter and code formater checker
+
 ```bash
 ruff check src
 ruff format src

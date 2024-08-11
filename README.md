@@ -21,7 +21,7 @@
 - Use python/fastapi as api backend server and nextjs/react as frontend with basic components (i'm better with backend systems) 
 - Use simple-oauth2 with fake users base db to show authentication approach
 - Use mongodb to show persistence approach with stored data
-- Use local vector storage database to show RAG approach to LLM
+- Use chromadb as vector storage database to show RAG approach to LLM
 - Implementing basic rest api to handle chat iteractions
 - Use docker/docker-compose to local development
 
