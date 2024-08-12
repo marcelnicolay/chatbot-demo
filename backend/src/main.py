@@ -1,14 +1,13 @@
 import os
 import logging
 
-from fastapi import FastAPI, FastAPI, Request, status, HTTPException, Depends
+from fastapi import FastAPI, FastAPI, Request, status, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 
 from src.api.threads.router import router as ThreadRouter
-from src.api.threads.models import ThreadInDb
 from src.errors import NoResultFound
 from .db.mongodb_utils import close_mongo_connection, connect_to_mongo
 
@@ -30,7 +29,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 
 @app.exception_handler(NoResultFound)
 async def not_found_exception_handler(request: Request, exc: NoResultFound):
-    return HTTPException(
+    raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND
     )
 
