@@ -40,7 +40,8 @@ ruff format src
 uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-## Running fastapi server using gunicorn local
+## Running local using docker (recommended)
 ```bash
-gunicorn src.main:app --worker-class uvicorn.workers.UvicornWorker --bind :8000
+docker compose build
+docker compose run
 ```
