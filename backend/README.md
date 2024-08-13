@@ -2,8 +2,7 @@
 
 ## Running local using docker (recommended)
 ```bash
-docker compose build
-docker compose up
+docker compose up --build
 ```
 
 Open https://localhost:8000/docs and try out using openapi documentation

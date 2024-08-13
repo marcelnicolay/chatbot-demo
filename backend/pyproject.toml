@@ -28,6 +28,9 @@ python-dotenv = "^1.0.0"
 pydantic-settings = "^2.2.1"
 beanie = "^1.26.0"
 asgi-lifespan = "^2.1.0"
+unstructured = {extras = ["csv"], version = "^0.15.1"}
+python-magic = "^0.4.27"
+python-magic-bin = "^0.4.14"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
