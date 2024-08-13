@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardTitle,
 } from "@/components/ui/card"
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Send, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -41,14 +41,22 @@ export function ChatWidget() {
   const [input, setInput] = React.useState("")
   const inputLength = input.trim().length  
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (messagesEndRef.current){
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth"});
+    }
+  }, [isLoading, messages]);
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     if (inputLength === 0) return
     if (activeThread === undefined) return
 
+    setIsLoading(true)
+
     const newMessage = { role: "user", content: input } as Message
     setMessages([...messages, newMessage]);
-    console.log(messages)
     
     // call the chat api
     ChatApi.callChatApi({
@@ -57,6 +65,7 @@ export function ChatWidget() {
       headers: {},
       onResponse: (message) => {
         setMessages([...messages, newMessage, message]);
+        setIsLoading(false)
       },
       onError: (error) => {
         console.error(error);
@@ -75,14 +84,16 @@ export function ChatWidget() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4 text-sm overflow-y-auto h-[260px] pr-2">
-            {isLoading ? (
-                  <div className="flex p-4 justify-center items-center">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  </div>
-                ) : (
+          <div className="space-y-4 overflow-y-auto h-[260px] pr-2">
+            {activeThread && (
               <ChatMessages messages={messages} /> 
             )}
+            {isLoading && (
+              <div className="flex flex-row justify-center items-center">
+                <Loader2 className="h-4 w-4 animate-spin" />
+              </div>
+            )}
+            <div ref={messagesEndRef} />
           </div>
         </CardContent>
         <CardFooter>
@@ -92,6 +103,7 @@ export function ChatWidget() {
                 id="message"
                 placeholder="Type your message here..."
                 className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0 text-foreground"
+                autoComplete="off"
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
               />
