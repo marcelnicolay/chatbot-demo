@@ -1,6 +1,8 @@
 services:
   web:
     build: .
+    volumes:
+      - ./src:/app/src
     depends_on:
       - mongodb
     environment:

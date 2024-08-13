@@ -1,3 +1,17 @@
+# Chatdemo API
+
+## Running local using docker (recommended)
+```bash
+docker compose build
+docker compose up
+```
+
+Open https://localhost:8000/docs and try out using openapi documentation
+
+## Routes
+POST /api/threads/
+POST /api/threads/{thread_id}/chat/
+
 # Contributing
 
 ## Create Virtual Env
@@ -40,8 +54,3 @@ ruff format src
 uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-## Running local using docker (recommended)
-```bash
-docker compose build
-docker compose run
-```
