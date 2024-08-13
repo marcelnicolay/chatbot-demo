@@ -46,6 +46,7 @@ class ChatService:
     def get_llm_model(self, settings: Settings) -> ChatOpenAI:
         """
         Conversational RAG implementation with chat history using langchain_openai
+        using the built-in chain constructors from langchain.
         https://python.langchain.com/v0.2/docs/tutorials/qa_chat_history/
         """ 
         llm_model = ChatOpenAI(
@@ -57,7 +58,7 @@ class ChatService:
             verbose=True,
         )
         
-        # Incorporate the retriever into a question-answering chain.
+        # takes historical messages and the latest user question, and reformulates the question
         contextualize_q_prompt = ChatPromptTemplate.from_messages(
             [
                 SystemMessage(content=contextualize_q_system_prompt),
@@ -66,7 +67,8 @@ class ChatService:
             ]
         )
         history_aware_retriever  = create_history_aware_retriever(llm_model, vs.retriever, contextualize_q_prompt)
- 
+
+        # rephrasing of the input query to our retriever, so that the retrieval incorporates the context of the conversation
         qa_prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", system_prompt),
@@ -74,8 +76,13 @@ class ChatService:
                 ("human", "{input}"),
             ]
         )
+
+        # use create_stuff_documents_chain to generate a question_answer_chain, with input keys context, chat_history, and input
         question_answer_chain = create_stuff_documents_chain(llm_model, qa_prompt)
+
+        # This chain applies the history_aware_retriever and question_answer_chain in sequence
         rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
+
         return rag_chain
     
     def get_chat_history_from_messages(self, messages: List[ChatMessage]) -> ChatPromptTemplate:
