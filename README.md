@@ -3,7 +3,7 @@
 This is a chatdemo project bootstrapped with FastApi for backend and NextJs for frontend.
 
 ## Features
-- Act as a product guidance assistant
+- Act as a product guidance assistant using ChatGPT
 - Keep track of its progress, and don’t forget along the lines of what it already knows.
 - We want the agent to be specialized in product usage, acquiring the needed knowledge via retrieval augmentation.
 
@@ -15,7 +15,14 @@ First, go to backend directory:
 cd backend
 ```
 
+Copy and edit local .env file
+
+```bash
+cp .env.example .env
+```
+
 Start webserver using docker
+
 ```bash
 docker compose build
 docker compose up
@@ -25,6 +32,12 @@ Go to frontend directory
 
 ```bash
 cd frontend
+```
+
+Copy and edit local .env file
+
+```bash
+cp .env.example .env.local
 ```
 
 Start front end
@@ -43,6 +56,7 @@ Open http://localhost:3000
 
 ## Development decisions
 - Python/fastapi as api backend server 
+- Langchain integrated with OpenAI/ChatGPT Model
 - Nextjs/react as frontend with basic components
 - Use mongodb to show persistence approach with stored data
 - Implementing basic rest api to handle chat iteractions
