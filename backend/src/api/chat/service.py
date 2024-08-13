@@ -17,7 +17,7 @@ class ChatService:
         """Create a new chat message."""
         chat_message_in_db = ChatMessageInDB(
             role=chat_message.role,
-            message=chat_message.message,
+            content=chat_message.content,
             thread_id=thread.id
         )
         await chat_message_in_db.create()
@@ -47,11 +47,11 @@ class ChatService:
         for message in messages:
             if message.role == MessageRole.USER:
                 chat_history.append(
-                    HumanMessage(content=message.message)
+                    HumanMessage(content=message.content)
                 )
             elif message.role == MessageRole.ASSISTANT:
                 chat_history.append(
-                    AIMessage(content=message.message)
+                    AIMessage(content=message.content)
                 )
         return chat_history
     
@@ -62,12 +62,12 @@ class ChatService:
 
         chat_history = self.get_chat_history_from_messages(messages=messages)
         chat_history.append(
-            HumanMessage(content=last_message.message)
+            HumanMessage(content=last_message.content)
         )
 
         response = await llm_model.ainvoke({"messages": chat_history})
 
-        chat_message = ChatMessage(role=MessageRole.ASSISTANT, message=response.content)
+        chat_message = ChatMessage(role=MessageRole.ASSISTANT, content=response.content)
         return await self.save_message(thread, chat_message)
 
 

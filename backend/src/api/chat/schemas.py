@@ -13,7 +13,7 @@ class MessageRole(str, Enum):
 class ChatMessage(BaseModel):
     id: str = None
     role: MessageRole
-    message:str
+    content:str
 
 
 class ChatRequest(BaseModel):

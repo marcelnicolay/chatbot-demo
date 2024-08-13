@@ -8,4 +8,4 @@ class ChatMessageInDB(Document):
     thread_id: str
     role: MessageRole
     created_at: datetime = Field(default_factory=datetime.now)
-    message: str
+    content: str
